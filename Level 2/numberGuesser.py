@@ -1,5 +1,8 @@
 import random
-number = random.randint(1,100)
+num1 = int(input('Enter number 1'))
+num2 = int(input('Enter number 2'))
+number = random.randint(num1,num2)
+
 n = int(input('Enter the number : '))
 while True:
     if n>number:
