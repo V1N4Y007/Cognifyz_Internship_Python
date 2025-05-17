@@ -1,34 +1,27 @@
-import streamlit as st
 import pandas as pd
-import plotly.express as px
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-st.title(" Interactive Data Visualization Tool")
+table = pd.read_csv('C:/Users/abc/Downloads/internship/Level 3/winequality-white.csv', sep=';')
+column_list = table.columns.tolist()
 
+graph_type = input('Enter the graph type Line , Bar or Heatmap?')
+x_axis = column_list[0]
+y_axis = column_list[1]
 
-uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file,sep=';')
-    st.write("### Data Preview", df.head())
+if graph_type == "Line":
+    plt.plot(table[x_axis], table[y_axis])
+    plt.xlabel(x_axis)
+    plt.ylabel(y_axis)
+elif graph_type == "Bar":
+    plt.bar(table[x_axis], table[y_axis])
+    plt.xlabel(x_axis)
+    plt.ylabel(y_axis)
+elif graph_type == "Heatmap":
+    num_data = table.select_dtypes(include=['number'])
+    corr = num_data.corr()
+    sns.heatmap(corr, annot=True, cmap='coolwarm')
 
-    columns = df.columns.tolist()
-
-   
-    chart_type = st.selectbox("Select Chart Type", ["Scatter", "Line", "Bar", "Histogram", "Box", "Pie"])
-
-    x_col = st.selectbox("X-axis", columns)
-    y_col = st.selectbox("Y-axis", columns)
-
-    if chart_type == "Scatter":
-        fig = px.scatter(df, x=x_col, y=y_col)
-    elif chart_type == "Line":
-        fig = px.line(df, x=x_col, y=y_col)
-    elif chart_type == "Bar":
-        fig = px.bar(df, x=x_col, y=y_col)
-    elif chart_type == "Histogram":
-        fig = px.histogram(df, x=x_col)
-    elif chart_type == "Box":
-        fig = px.box(df, x=x_col, y=y_col)
-    elif chart_type == "Pie":
-        fig = px.pie(df, names=x_col, values=y_col)
-
-    st.plotly_chart(fig)
+plt.title(f"{graph_type} Chart")
+plt.tight_layout()
+plt.show()

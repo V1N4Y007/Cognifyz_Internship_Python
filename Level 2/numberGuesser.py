@@ -1,6 +1,6 @@
 import random
-num1 = int(input('Enter number 1'))
-num2 = int(input('Enter number 2'))
+num1 = int(input('Enter number 1: '))
+num2 = int(input('Enter number 2: '))
 number = random.randint(num1,num2)
 
 n = int(input('Enter the number : '))

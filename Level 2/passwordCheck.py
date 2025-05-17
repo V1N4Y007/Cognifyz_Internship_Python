@@ -3,14 +3,15 @@ def hasDigit(password):
     for c in password:
         if c.isdigit():
             return True
-    
     return False
+
+
 def specialCharacters(password):
     for c in password:
         if c in ['@','$','#','!','&','%']:
             return True
-    
     return False
+
 
 if len(password) < 8:
     print('Password is too short')
